@@ -1,15 +1,33 @@
-## Put comments here that give an overall description of what your
-## functions do
+# custom matrix object that stores the inverted Matrix of the object once it has
+# been calculated
 
-## Write a short comment describing this function
-
-makeCacheMatrix <- function(x = matrix()) {
-
+makeCacheMatrix = function(x = matrix()) {
+  inv = NULL
+  set = function(y) {
+    x <<- y
+    inv <<- NULL
+  }
+  get = function() {x}
+  getInv = function() inv
+  setInv = function (solve) {
+    inv <<- solve(x)
+  }
+  list(set = set, get = get,
+    setInv = setInv, getInv = getInv
+  )
+  
 }
 
+## Either calculates the inverse matrix or retrieves it if it already exists
 
-## Write a short comment describing this function
-
-cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+cacheSolve = function(x, ...) {
+  m = x$getInv()
+  if(!is.null(m)) {
+    message("getting cached data")
+    return(m)
+  }
+  data = x$get()
+  m = solve(data, ...)
+  x$setInv(m)
+  m
 }
