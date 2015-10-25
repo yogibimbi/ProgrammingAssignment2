@@ -15,7 +15,6 @@ makeCacheMatrix = function(x = matrix()) {
   list(set = set, get = get,
     setInv = setInv, getInv = getInv
   )
-  
 }
 
 ## Either calculates the inverse matrix or retrieves it if it already exists
